@@ -3,7 +3,7 @@ package com.vinod.newanalytical;
 /**
  * Created by vpaliwal on 9/8/17.
  */
-//Maximum difference between two subsets of m elements
+//the maximum difference between any two elements such that larger element appears after the smaller number.
 public class MaxDifferenceInArray {
 
     int getMaxDifference(int []arr){
@@ -31,13 +31,11 @@ public class MaxDifferenceInArray {
 
         MaxDifferenceInArray obj =new MaxDifferenceInArray();
 
-          int []arr = {4,3,10,2,9,1,6};
-     //   int []arr = {1,2,3,4,5};
-        
+          //int []arr = {4,3,10,2,9,1,6};
+          int []arr = {1,2,3,4,5};
         
         int maxDiff=  obj.getMaxDifference(arr);
         System.out.println("Maximum Difference : "+maxDiff);
     }
-
-
 }
+//Time Complexity : O(n)

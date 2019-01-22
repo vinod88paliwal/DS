@@ -25,7 +25,8 @@ public class StringBufferImpl {
 	{
 		String s = str;
 		
-		if(s == null) s = "null";
+		if(s == null) 
+			s = "null";
 		//
 		if(length + s.length() > capacity)
 		{
@@ -62,12 +63,3 @@ public class StringBufferImpl {
 		System.out.println(sbi.toString());
 	}
 }
-
-
-
-
-
-
-
-
-

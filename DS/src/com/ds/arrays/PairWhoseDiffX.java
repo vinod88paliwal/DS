@@ -44,7 +44,7 @@ public class PairWhoseDiffX {
     {
 		int count = 0;  // Initialize count
 		 // Declares and initializes the whole array as false
-        boolean[] hashmap = new boolean[MAX];
+        boolean[] binMap = new boolean[MAX];
 
      // Insert array elements to hashmap
        /* for (int i = 0; i < size; i++)
@@ -55,12 +55,12 @@ public class PairWhoseDiffX {
         {
         	 int temp = k+ i;
         	 // checking for condition
-             if (temp >0 && hashmap[temp])
+             if (temp >0 && binMap[temp])
              {
             	 System.out.println("Pair with given diff: " + k + " is (" + temp + ", "+i+")");
             	 count++;
              }
-             hashmap[i] = true;
+             binMap[i] = true;
         }
         return count;
     }

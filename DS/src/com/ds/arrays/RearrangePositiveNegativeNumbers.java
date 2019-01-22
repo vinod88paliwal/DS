@@ -58,7 +58,7 @@ public class RearrangePositiveNegativeNumbers {
 		
 		int arr[] =	{-1, -2, 3, -4, -5, 6, -7, 8}; //-1 -2 -7 -4 -5 6 3 8
         int size = arr.length;
-        RearrangePosNeg1(arr, 0, size - 1);
+        RearrangePosNeg(arr, 0, size - 1);
         
         for(int i : arr)
         	System.out.print(i+" ");

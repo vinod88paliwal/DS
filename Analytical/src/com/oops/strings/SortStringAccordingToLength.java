@@ -28,7 +28,6 @@ public class SortStringAccordingToLength {
 		SortStringAccordingToLength obj = new SortStringAccordingToLength();
 		
 		String s = "Hello Java World What do you want";
-		
 		String str[] = s.split(" ");
 		
 	/*	Arrays.sort(str, (x,y) -> Integer.compare(x.length(), y.length()) );
@@ -36,7 +35,6 @@ public class SortStringAccordingToLength {
 			// OR
 		   // User defined logic
 		obj.sort(str, str.length);
-		
 		
 		for(String st : str) {
 			System.out.print(st+" ");

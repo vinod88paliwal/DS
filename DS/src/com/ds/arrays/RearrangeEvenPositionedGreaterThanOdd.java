@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 //https://www.geeksforgeeks.org/rearrange-array-such-that-even-positioned-are-greater-than-odd/
 public class RearrangeEvenPositionedGreaterThanOdd {
-//This question is same as RearrangeSmallestLargest2ndSmallest2ndLargest.java and
+//This question can be asked as RearrangeSmallestLargest2ndSmallest2ndLargest.java and
 // solution of RearrangeSmallestLargest2ndSmallest2ndLargest is better and simple than this/below.
 
 	static void evenPositionedGreaterThanOdd(int a[], int n) {

@@ -9,7 +9,7 @@ public class DeleteConsecutiveSameWordsInASequence {
 		DeleteConsecutiveSameWordsInASequence obj =  new DeleteConsecutiveSameWordsInASequence();
 		String str = "jaaaaaavvvvvaaa";
 		
-		String res ="";
+		StringBuffer res = new StringBuffer();
 		int i=0 ;
 		
 		for( ; i<str.length()-1 ; i++) {
@@ -18,10 +18,10 @@ public class DeleteConsecutiveSameWordsInASequence {
 		char c2 = str.charAt(i+1);
 			
 			if(c1 != c2 )
-				res +=c1;
+				res.append(c1);
 			
 		}
-		res += str.charAt(i); //To apend the last character of the String.	
+		res.append(str.charAt(i)); //To apend the last character of the String.	
 		
 		System.out.println("Word after removing repeated characters = "+res); // Printing the result
 	}

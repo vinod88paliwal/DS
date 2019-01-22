@@ -32,18 +32,18 @@ Algo:
 
 		int mid = low + (high - low) / 2;
 
-		// already sorted
+		// already sorted -- 1,2,3,4,5
 		if (arr[high] > arr[low])
 			return arr[high];
 
-		// right shift one
+		// right shift one -- 2,3,4,5,1,2
 		else if (arr[high] == arr[low])
 			return findMax(arr, low + 1, high);
 
-		// go right
+		// go right -- 2,3,4,5,1,
 		else if (arr[mid] >= arr[low])
 			return findMax(arr, low + 1, high);
-		// go left
+		// go left  
 		else // if(arr[mid] < arr[low])
 			return findMax(arr, low, mid);
 	}

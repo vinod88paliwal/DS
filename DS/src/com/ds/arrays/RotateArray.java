@@ -27,7 +27,7 @@ public class RotateArray {
 	        RotateArray obj = new RotateArray();
 
 	        int arr[] = {1, 2, 3, 4, 5, 6, 7};
-	        obj.leftRotate(arr, 4, arr.length);
+	        obj.leftRotate(arr, 2, arr.length);
 	        obj.printArray(arr);
 
 	    }

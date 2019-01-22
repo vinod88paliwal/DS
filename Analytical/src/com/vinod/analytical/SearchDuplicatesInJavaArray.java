@@ -60,7 +60,7 @@ public class SearchDuplicatesInJavaArray {
 	     {
 			 String str =  input[i].toString();
 			 
-			 if(dupMap.containsKey(str))
+			 if(dupMap.get(str) != null)
 				 dupMap.put(str, dupMap.get(str)+1);
 			 else
 				 dupMap.put(str, 1);

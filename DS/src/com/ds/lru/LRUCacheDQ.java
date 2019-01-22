@@ -8,14 +8,15 @@ import java.util.Set;
 public class LRUCacheDQ {
 
     // store keys of cache
-     Deque<Integer> dq;
+   private Deque<Integer> dq;
 
     // store references of key in cache
-     Set<Integer> set;
+   private Set<Integer> set;
 
     //maximum capacity of cache
-     int csize;
+   private int csize;
 
+    public 
     LRUCacheDQ(int size)
     {
         dq = new LinkedList<>();

@@ -8,7 +8,7 @@ public class StringCountCharactersAndReplacewithCount {
 
 	public static void main(String[] args) {
 		
-		String s ="ABBBCCDDDDEEEEF"; //A3B2C3D4EF
+		String s ="ABBBCCDDDDEEEEF"; //AB3C2D4E4F
 		int len = s.length();
 		Map<Character, Integer> dupMap = new HashMap<Character, Integer>();
 		
@@ -16,7 +16,7 @@ public class StringCountCharactersAndReplacewithCount {
 		for(int i=0 ; i< len ; i++) {
 			char c = s.charAt(i);
 			
-			if(dupMap.containsKey(s.charAt(i))) 
+			if(dupMap.get(c) != null) 
 				dupMap.put(c, dupMap.get(c)+1);
 			else
 				dupMap.put(c,1);
@@ -29,9 +29,9 @@ public class StringCountCharactersAndReplacewithCount {
 		for(char c : keys) {
 			int count = dupMap.get(c);
 			if(count >1) {
-			
+			   
+			    sb.append(c);
 				sb.append(count);
-				sb.append(c);
 				continue;
 			}
 			sb.append(c);

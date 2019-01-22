@@ -118,7 +118,7 @@ List is an collection and can contain duplicate elements. You can access any ele
 
 Default size : ArrayList - 10  and   Vector - 10, 
 
-public class ConcurrentListExample {
+	public class ConcurrentListExample {
  
     public static void main(String[] args) {
         List<String> list = new ArrayList<String>();
@@ -700,7 +700,7 @@ Personally, I like this question because of its depth and number of concept it t
     Race condition on HashMap  in Java
     Resizing of Java HashMap
 
-
+r
 Just to summarize here are the answers which does makes sense for above questions
 
 How HashMap  works in Java
@@ -2045,7 +2045,7 @@ TIP1: It’s not guaranteed that mythread will start before myrunnable it depend
 TIP2: Thread will be said to go on dead state once execution of run() method finished and you can not start that thread again.
 
 
-Que : Anybody guess what will happen if we call the run() method directly instead of calling start() method ?
+Que : What will happen if we call the run() method directly instead of calling start() method ?
 Ans : Simple there would be no Error or Exception, run() method will simply be executed in the same Thread and new Thread will not be created. 
 
 Que : What will happen if you call start() method twice in same Thread object e.g.
@@ -2251,7 +2251,7 @@ Note : There is no way of obtaining the result of the executed Runnable, if nece
 submit(Runnable): The submit(Runnable) method also takes a Runnable implementation, but returns a Future object. This Future object can be used to check if the Runnable as finished executing. 
 ----------------
 Example :
-Future future =  executorService.execute(   ()->{System.out.println("Asynchronous task"); }  );
+Future future =  executorService.submit(   ()->{System.out.println("Asynchronous task"); }  );
 
 future.get();  //returns null if the task has finished correctly.
 
@@ -2460,7 +2460,7 @@ Difference between wait and sleep in Java :-->
 
 6) Wait releases lock and goes back to Runnable state once waiting state over but Sleep doesn`t release lock and may start running once its wakes up.
 here is code snippet for calling wait and sleep method in Java
-
+ 
 wait() :-->
 synchronized(monitor){
 while or if (condition == true)
@@ -2868,7 +2868,7 @@ The most common use of the AtomicInteger is to handle a counter that is accessed
 
 ----------------------------
 
-ReadWriteLock ==> A java.util.concurrent.locks.ReadWriteLock is an advanced thread lock mechanism and class ReentrantReadWriteLock is the implementation of it. It allows multiple threads to read a certain resource, but only one to write it, at a time.
+ReadWriteLock ==> A java.util.concurrent.locks.ReadWriteLock is an advanced thread lock mechanism and class ReentrantReadWriteLock is the implementation of it. It allows multiple threads to read a certain resource, but only one Thread to write it, at a time.
 ----------------
 Rules: 
 -----
@@ -2899,7 +2899,7 @@ Lock writeLock = rwLock.writeLock();
   
 Conclusion:
 -----------
-    ReadWriteLock allows multiple concurrent readers abut only one exclusive writer.
+    ReadWriteLock allows multiple concurrent readers but only one exclusive writer.
     ReentrantReadWriteLock is an implementation of ReadWriteLock. In addition, it allows a reader/writer thread acquire a read lock/write lock multiple times recursively (reentrancy).
     Use the read lock to safeguard code that performs read operations, and use the write lock to protect access to code that performs update operation.
     In practice, ReadWriteLock can be used to increase throughput for shared data structure like cache or dictionary-like data which the update is infrequent and read is more frequent.  
@@ -2927,7 +2927,8 @@ Difference between ReentrantLock and synchronized keyword :
 1. Fairness : synchronized keyword doesn't support fairness. Any thread can acquire lock once released, no preference can be specified, on the other hand you can make ReentrantLock fair by specifying fairness property, while creating instance of ReentrantLock. Fairness property provides lock to longest waiting thread, in case of contention.
 2. tryLock() :  ReentrantLock provides convenient tryLock() method, which acquires lock only if its available or not held by any other thread. This reduce blocking of thread waiting for lock.
 3. ability to interrupt : It has ability to interrupt Thread while waiting for Lock. In case of synchronized keyword, a thread can be blocked waiting for lock, for an indefinite period of time and there was no way to control that.
-                          ReentrantLock provides a method called lockInterruptibly(), which can be used to interrupt thread when it is waiting for lock.
+            
+			ReentrantLock provides a method called lockInterruptibly(), which can be used to interrupt thread when it is waiting for lock.
 						  Similarly tryLock() with timeout can be used to timeout if lock is not available in certain time period.
 4) ReentrantLock also provides convenient method to get List of all threads waiting for lock.
 
@@ -3046,7 +3047,9 @@ Only if the bootstrap and then the extension class loader is unsuccessful in loa
 
 ClassNotFoundException:-->
 ------------------------
-ClassNotFoundException is a runtime exception that is thrown when an application tries to load a class at runtime using the Class.forName() or loadClass() or findSystemClass() methods ,and the class with specified name are not found in the classpath. For example, you may have come across this exception when you try to connect to MySQL or Oracle databases and you have not updated the classpath with required JAR files. Most of the time, this exception occurs when you try to run an application without updating the classpath with required JAR files.
+ClassNotFoundException is a runtime exception that is thrown when an application tries to load a class at runtime using the Class.forName() or loadClass() or findSystemClass() methods ,
+and the class with specified name are not found in the classpath. For example, you may have come across this exception when you try to connect to MySQL or Oracle databases and 
+you have not updated the classpath with required JAR files. Most of the time, this exception occurs when you try to run an application without updating the classpath with required JAR files.
 
 Example : the below program will throw ClassNotFoundException if the mentioned class Òoracle.jdbc.driver.OracleDriverÓ is not found in the classpath.
 	com.oops.Exceptions.ClassNotFoundExceptionExample
@@ -3982,20 +3985,6 @@ Topic 						::		Data Structure		::
 	
 
 http://www.everybrickmatters.com/2013/08/stack-program-impelementation.html
-
-
-
------------------------------------------------------------------------------------------
-Topic        							:: HR Questions ::
-
-
-Quest 3: Tell me about yourself (if asked by technical Person) ?
-Ans : Myself Vinod Paliwal, am having 4.9 years of experience in building enterprise application using Java/J2EE technologies.
-Currently I am working with Manhattan associates as SSE. As per as my education concern After completing Bachelor of Engineering with Computer Science branch from RGTU Bhopal , I have done CDAC from ACTS Bangalore.
-Currently I am working with Enterprise Order management project which uses Java,Spring,Hibernate.		
-												
-Quest 3: Tell me about yourself (if asked by Manager/HR) ?												
-Ans : 
 
 
 ----------------------------------------------------------------------------------------------------------

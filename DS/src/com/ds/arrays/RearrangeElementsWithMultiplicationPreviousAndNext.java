@@ -13,13 +13,13 @@ public class RearrangeElementsWithMultiplicationPreviousAndNext {
 
         for(int i =1; i<n-1 ; i++)
         {
-        	// Store current value of next interation
+        	// Store current value of next iteration
         	int curr = arr[i];
         	
-        	// Update current value using previos value
+        	// Update current value using previous value
         	arr[i] = prev * arr[i+1];
         	
-        	//now curr would becpome prev
+        	//now curr would become prev
         	prev = curr;
         }
         
@@ -27,7 +27,6 @@ public class RearrangeElementsWithMultiplicationPreviousAndNext {
         	System.out.print(i+" ");
 	}
 }
-
 /*
  Time Complexity : O(n) 
  Auxiliary Complexity : O(1)

@@ -9,11 +9,11 @@ public class Segregate0And1Array {
 
 			if (array[start] == 0) {
 				start++;
-				continue;
+			//	continue;
 			}
 			if (array[end] == 1) {
 				end--;
-				continue;
+			//	continue;
 			}
 
 			/*array[start++] = 0;

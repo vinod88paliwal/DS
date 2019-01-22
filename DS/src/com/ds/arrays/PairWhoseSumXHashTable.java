@@ -9,16 +9,16 @@ public class PairWhoseSumXHashTable {
         // Declares and initializes the whole array as false
         boolean[] binmap = new boolean[MAX];
 
-        for (int i=0; i<arr.length; ++i)
+        for (int i : arr)
         {
-            int temp = sum-arr[i];
+            int temp = sum -i ;
 
             // checking for condition
-            if (temp>=0 && binmap[temp])
+            if (temp > 0 && binmap[temp])
             {
-                System.out.println("Pair with given sum " + sum + " is (" + arr[i] + ", "+temp+")");
+                System.out.println("Pair with given sum " + sum + " is (" + i + ", "+temp+")");
             }
-            binmap[arr[i]] = true;
+            binmap[i] = true;
         }
     }
 

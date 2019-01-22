@@ -69,10 +69,10 @@ public class SumClosestToX {
 		    		  diff = Math.abs(arr1[l] + arr2[r] - x);
 		    	  }
 		  // If sum of this pair is more than x, move to smaller side
-		    	  if(arr1[l] + arr2[r] > x)
-		    		  r--;
+		    	  if(arr1[l] + arr2[r] < x)
+		    		  l++; 
 		    	  else // move to the greater side
-		    		  l++;
+		    		  r--;
 		      }
 		
 		System.out.println(" The closest pair is "+arr1[min_l] +" and "+arr2[min_r] );
