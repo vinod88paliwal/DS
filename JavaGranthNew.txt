@@ -3504,7 +3504,7 @@ https://www.geeksforgeeks.org/object-serialization-inheritance-java/
 
 Case 1: If superclass is serializable then subclass is automatically serializable  :
 -----------------------------------------------------------------------------------
-Serializable, then by default every subclass is serializable. Hence, even though subclass doesnÕt implement Serializable interface( and if itÕs superclass implements Serializable), then we can serialize subclass object. 
+Serializable, then by default every subclass is serializable. Hence, even though subclass does not implement Serializable interface( and if itÕs superclass implements Serializable), then we can serialize subclass object. 
 Example : com.oops.serialization.inheritance.SerializationInheritance
 
 Case 2 : What happens when a sub-class is serializabled but its superclass is not ?  :
@@ -3911,14 +3911,14 @@ Proper monitoring & tuning of the Metaspace will obviously be required in order 
 									----------------------------------	
 
 Garbage Collector is a Daemon thread that keeps running in the background. Basically, it frees up the heap memory by destroying the unreachable objects.
-Unreachable objects are the ones that are no longer referenced by any part of the program.We can choose the garbage collector for our java program through JVM options.
+Unreachable objects are the ones that are no longer referenced by any part of the program. We can choose the garbage collector for our java program through JVM options.
 
 This behavior was used to improve the performance of JVM, and the adopted methodology is commonly called Generational Garbage Collection.
 In this method, the Heap space is divided into generations like Young Generation, Old or Tenured Generation, and Permanent Generation.
 
-# The Young generation heap space is the new where all the new Objects are created. Once it gets filled up, minor garbage collection (also known as, Minor GC) takes place. Which means, all the dead objects from this generation are destroyed This process is quick because as we can see from the graph, most of them would be dead. The surviving objects in young generation are aged and eventually moves to the older generations. 
+# The Young generation heap space is where all the new Objects are created. Once it gets filled up, minor garbage collection (also known as, Minor GC) takes place. Which means, all the dead objects from this generation are destroyed This process is quick because as we can see from the graph, most of them would be dead. The surviving objects in young generation are aged and eventually moves to the older generations. 
 # The Old Generation is used to store long surviving objects. Typically, a threshold is set for young generation object and when that age is met, the object gets moved to the old generation. Eventually, the old generation needs to be collected. This event is called a Major GC (major garbage collection). Often it is much slower because it involves all live objects.
-# Also, there is Full GC, which means cleaning the entire Heap Ð both Young and older generation spaces.
+# Also, there is Full GC, which means cleaning the entire Heap, both Young and older generation spaces.
 
 Lastly, up to Java 7, there was a Permanent Generation (or Perm Gen), which contained metadata required by the JVM to describe the classes and methods used in the application. It was removed in Java 8.
 
@@ -4279,7 +4279,7 @@ Functional Interfaces : A Functional Interface is an interface, which contains o
 ---------------------   Interface because it contains only one abstract method.
 * Yes, it is possible to define our own Functional Interfaces.
 
-Example : Runnable, Comparator,Cloneable are some of the examples for Functional Interface. We can implement these Functional Interfaces by using Lambda expression.
+Example : Runnable, Comparator,Cloneable,Consumer, Supplier, Function and Predicate. are some of the examples for Functional Interface. We can implement these Functional Interfaces by using Lambda expression.
 
 Old code :
 Thread t =new Thread(new Runnable(){
@@ -4295,7 +4295,7 @@ Thread t = new Thread(()->{
 });
 
 
-User defined Functional Interface :We need to follow these rules to define a Functional Interface:
+User defined Functional Interface : We need to follow these rules to define a Functional Interface:
 
 *   Define an interface with one and only one abstract method.
 *   We cannot define more than one abstract method.
@@ -4616,7 +4616,19 @@ Selection Sort : O(n2)
 -------------------------------------------------------------------***************---------------------------------------------------------------------------------
                                                                       Cassandara
                                                                 ---------*****--------
-													
+Cassandara : Apache Cassandra is a highly scalable, high-performance distributed database designed to handle large amounts of data across many commodity servers, providing high availability with no single point of failure. It is a type of NoSQL database							
+						
+NoSQLDatabase : A NoSQL is a database that provides a mechanism to store and retrieve data other than the tabular relations used in relational databases. These databases are schema-free, support easy replication, have simple API, eventually consistent, and can handle huge amounts of data.
+				Example : Apache HBase, MongoDB.
+	
+Notable points of Apache Cassandra:
+----------------------------------
+1. It is highly scalable (means allows more hardware, more customer, more data as per requirement), fault-tolerant, and consistent.
+2. It supports Transaction - Cassandra supports properties like Atomicity, Consistency, Isolation, and Durability (ACID).
+3. Fast writes - It performs blazingly fast writes and can store hundreds of terabytes of data, without sacrificing the read efficiency.
+4. It is a column-oriented database.
+ 
+					
 Cassandra - Architecture :
 1. The design goal of Cassandra is to handle big data workloads across multiple nodes without any single point of failure.
 2. Cassandra has peer-to-peer distributed system across its nodes, and data is distributed among all the nodes in a cluster.
@@ -4629,18 +4641,58 @@ Cassandra - Architecture :
 Data Replication in Cassandra :
 -----------------------------
 In Cassandra, one or more of the nodes in a cluster act as replicas for a given piece of data. If it is detected that some of the nodes responded with an out-of-date value, Cassandra will return the most recent value to the client. After returning the most recent value, Cassandra performs a read repair in the background to update the stale values.
-
 Note − Cassandra uses the Gossip Protocol in the background to allow the nodes to communicate with each other and detect any faulty nodes in the cluster.
 
+Components of Cassandara :
+------------------------
+Node − It is the place where data is stored.
+Data Center − It is a collection of related nodes.
+Cluster − A cluster is a component that contains one or more data centers. For failure handling, every node contains a replica, and in case of a failure, the replica takes charge. Cassandra arranges the nodes in a cluster, in a ring format, and assigns data to them.
+Commit log − The commit log is a crash-recovery mechanism in Cassandra. Every write operation is written to the commit log.
+Mem-table − A mem-table is a memory-resident data structure. After commit log, the data will be written to the mem-table. Sometimes, for a single-column family, there will be multiple mem-tables.
+SSTable − It is a disk file to which the data is flushed from the mem-table when its contents reach a threshold value.
+Bloom filter − These are nothing but quick, nondeterministic, algorithms for testing whether an element is a member of a set. It is a special kind of cache. Bloom filters are accessed after every query.
 
 
+* Cassandara uses Cassandra Query Language (CQL). CQL treats the database (Keyspace) as a container of tables. 
+* Column families (Schema) − Keyspace is a container for a list of one or more column families. A column family, in turn, is a container of a collection of rows. Each row contains ordered columns. Column families represent the structure of your data. Each keyspace has at least one and often many column families.
 
+Relational Table (RT) Vs. Cassandra column Family (CCF) :
+----------------------------------------------
+1. RT: A schema in a relational model is fixed. Once we define certain columns for a table, while inserting data, in every row all the columns must be filled at least with a null value. but In Cassandra (in CCF), although the column families are defined, the columns are not. You can freely add any column to any column family at any time.
+2. Unlike relational tables where a column family’s schema is not fixed, Cassandra does not force individual rows to have all the columns. Like; one row will have 3 columns and another row can/may have 2 or 4 columns.
+
+Column : A column is the basic data structure of Cassandra with three values, namely key or column name, value, and a time stamp.
+Example :  Column :: -->> name:byte[], value:byte[], clock: clock[]
+
+Super Column : A super column is a special column, therefore, it is also a key-value pair. But a super column stores a map of sub-columns.
+Example :  Column :: -->> name:byte[], cols:map<byte[],column>
+
+
+Data Models of Cassandra and RDBMS :
+-----------------------------------
+1. RDBMS deals with structured data. but Cassandra deals with unstructured data.
+2. It has a fixed schema. but Cassandra has a flexible schema.
+3. In RDBMS, a table is an array of arrays (ROW x COLUMN). But In Cassandra, a table is a list of “nested key-value pairs”. (ROW x COLUMN key x COLUMN value)
+4. Database is the outermost container that contains data corresponding to an application. But In Cassandara Keyspace is the outermost container that contains data corresponding to an application.
+5. Tables are the entities of a database.But Tables or column families are the entity of a keyspace.
+6. Tables are the entities of a database.	Tables or column families are the entity of a keyspace.
+7. RDBMS supports the concepts of foreign keys, joins.	Relationships are represented using collections.
+
+
+Dependency in pom.xml:
+----------------------
+	 <dependency>
+         <groupId>com.datastax.cassandra</groupId>
+         <artifactId>cassandra-driver-core</artifactId>
+         <version>2.0.2</version>
+      </dependency>
 
 
 Creating a Keyspace using Java API :
 -----------------------------------
 
-Step1: Create a Cluster Object ::--> Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1").build();
+Step1: Create a Cluster Object ::--> Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1").build();  --> Add a contact point (IP address of the node) using addContactPoint() method of Cluster.Builder object.
 
 Step 2: Create a Session Object ::--> Session session = cluster.connect( );
         If you already have a keyspace, you can set it to the existing one by passing the keyspace name in string format to this method as shown below.
@@ -4664,8 +4716,7 @@ public class Create_KeySpace {
    public static void main(String args[]){
 
       //Query
-      String query = "CREATE KEYSPACE tp WITH replication "
-         + "= {'class':'SimpleStrategy', 'replication_factor':1};";
+      String query = "CREATE KEYSPACE tp WITH replication = {'class':'SimpleStrategy', 'replication_factor':1};";
                     
       //creating Cluster object
       Cluster cluster = Cluster.builder().addContactPoint("127.0.0.1").build();
@@ -4682,7 +4733,7 @@ public class Create_KeySpace {
    }
 }
 
-Keyspace created.
+Output : 	Keyspace created.
 
 
 
@@ -4758,6 +4809,8 @@ public class Create_Data {
    }
 }
 
+Creating Index :  String query = "CREATE INDEX name ON emp1 (emp_name);";
+Drop Index : DROP INDEX <identifier>
 
 CQL Collections : CQL provides the facility of using Collection data types. Using these Collection types (List, Set, Map), you can store multiple values in a single variable.
 ----------------
@@ -4800,24 +4853,138 @@ Example :CREATE TYPE card_details (
 
 
 
+-------------------------------------------------------------------***************---------------------------------------------------------------------------------
+                                                                      Kafka
+                                                                -------*****------
+
+Kafka : Kafka is designed for distributed high throughput systems. Kafka tends to work very well as a replacement for a more traditional message broker.
+		Two types of messaging patterns are available − one is point to point and the other is publish-subscribe (pub-sub) messaging system.
+		
+Point to Point Messaging System :
+--------------------------------
+In P2P system, messages are persisted in a queue. One or more consumers can consume the messages in the queue, but a particular message can be consumed by a maximum of one consumer only. Once a consumer reads a message in the queue, it disappears from that queue. The typical example of this system is an Order Processing System, where each order will be processed by one Order Processor, but Multiple Order Processors can work as well at the same time.		
+
+Publish-Subscribe Messaging System :
+----------------------------------
+In the publish-subscribe system, messages are persisted in a topic. Unlike point-to-point system, consumers can subscribe to one or more topic and consume all the messages in that topic. In the Publish-Subscribe system, message producers are called publishers and message consumers are called subscribers. A real-life example is Dish TV, which publishes different channels like sports, movies, music, etc., and anyone can subscribe to their own set of channels and get them whenever their subscribed channels are available.
 
 
+Apache Kafka : Apache Kafka is a distributed publish-subscribe messaging system and a robust queue that can handle a high volume of data and enables you to pass messages from one end-point to another. Kafka is suitable for both offline and online message consumption. Kafka messages are persisted on the disk and replicated within the cluster to prevent data loss. Kafka is built on top of the ZooKeeper synchronization service. It integrates very well with Apache Storm and Spark for real-time streaming data analysis.
+--------------
+
+benefits of Kafka  :
+-------------------
+Reliability − Kafka is distributed, partitioned, replicated and fault tolerance.
+Scalability − Kafka messaging system scales easily without down time..
+Durability − Kafka uses Distributed commit log which means messages persists on disk as fast as possible, hence it is durable..
+Performance − Kafka has high throughput for both publishing and subscribing messages. It maintains stable performance even many TB of messages are stored.
+
+Note : Kafka is very fast and guarantees zero downtime and zero data loss.
+       performs 2 million writes/sec. Kafka persists all data to the disk, which essentially means that all the writes go to the page cache of the OS (RAM). This makes it very efficient to transfer data from page cache to a network socket.
 
 
+Components and Description:
+--------------------------
+1. Topics : A stream of messages belonging to a particular category is called a topic. Data is stored in topics.
+	     	Topics are split into partitions. For each topic, Kafka keeps a mini-mum of one partition. Each such partition contains messages in an immutable ordered sequence. A partition is implemented as a set of segment files of equal sizes.
+
+2. Partition : Topics may have many partitions, so it can handle an arbitrary amount of data.
+
+3. Partition offset : Each partitioned message has a unique sequence id called as offset.
+
+4. Replicas of partition : Replicas are nothing but backups of a partition. Replicas are never read or write data. They are used to prevent data loss.
+
+5. Producers : Producers are the publisher of messages to one or more Kafka topics. Producers send data to Kafka brokers. Every time a producer pub-lishes a message to a broker, the broker simply appends the message to the last segment file. Actually, the message will be appended to a partition. Producer can also send messages to a partition of their choice.
+
+6. Consumers : Consumers read data from brokers. Consumers subscribes to one or more topics and consume published messages by pulling data from the brokers.
+
+7. Leader : Leader is the node responsible for all reads and writes for the given partition. Every partition has one server acting as a leader.
+
+8. Follower : Node which follows leader instructions are called as follower. If the leader fails, one of the follower will automatically become the new leader. A follower acts as normal consumer, pulls messages and up-dates its own data store.
 
 
-
-
-
-
-
-
-
-
+Role of ZooKeeper : A critical dependency of Apache Kafka is Apache Zookeeper, which is a distributed configuration and synchronization service. Zookeeper serves as the coordination interface between the Kafka brokers and consumers. The Kafka servers share information via a Zookeeper cluster. Kafka stores basic metadata in Zookeeper such as information about topics, brokers, consumer offsets (queue readers) and so on.
 																
-																	
 
+* Start ZooKeeper Server : $ bin/zkServer.sh start
+After executing this command, you will get a response as shown below −
+
+$ JMX enabled by default
+$ Using config: /Users/../zookeeper-3.4.6/bin/../conf/zoo.cfg
+$ Starting zookeeper ... STARTED									
+
+
+* Start CLI : $ bin/zkCli.sh
+After typing the above command, you will be connected to the zookeeper server and will get the below response.
+
+Connecting to localhost:2181
+................
+................
+................
+Welcome to ZooKeeper!
+................
+................
+WATCHER::
+WatchedEvent state:SyncConnected type: None path:null
+[zk: localhost:2181(CONNECTED) 0]
+
+Stop Zookeeper Server : $ bin/zkServer.sh stop
+
+* Start Kafka Server : $ bin/kafka-server-start.sh config/server.properties
+
+* Stop the Server : $ bin/kafka-server-stop.sh config/server.properties
+
+
+KafkaProducer API :
+------------------
+* KafkaProducer class provides send method to send messages asynchronously to a topic.
+  producer.send(new ProducerRecord<byte[],byte[]>(topic, partition, key1, value1) , callback);
+ 
+  here; ProducerRecord − The producer manages a buffer of records waiting to be sent.
+        Callback − A user-supplied callback to execute when the record has been acknowl-edged by the server (null indicates no callback).
+
+* KafkaProducer class provides a flush method to ensure all previously sent messages have been actually completed.
+  public void flush()
+
+
+Example :
+Simple Kafka producer :
+
+ // create instance for properties to access producer configs   
+      Properties props = new Properties();
+      
+      //Assign localhost id
+      props.put("bootstrap.servers", “localhost:9092");
+	  
+      Producer<String, String> producer = new KafkaProducer<String, String>(props);
+	
+	  for(int i = 0; i < 10; i++)
+	  producer.send(new ProducerRecord<String, String>(topicName,Integer.toString(, Integer.toString(i)));
+      
+	  System.out.println(“Message sent successfully”);
+      
+	  producer.close();
 
 
 												
-											
+ConsumerRecord API :
+--------------------			
+Example :
+
+	Properties props = new Properties();
+    props.put("bootstrap.servers", "localhost:9092");
+	
+	KafkaConsumer<String, String> consumer = new KafkaConsumer<String, String>(props);
+	//Kafka Consumer subscribes list of topics here.
+      consumer.subscribe(Arrays.asList(topicName));
+	  
+	  while (true) {
+         ConsumerRecords<String, String> records = consumer.poll(100);
+         for (ConsumerRecord<String, String> record : records)
+         
+         // print the offset,key and value for the consumer records.
+         System.out.printf("offset = %d, key = %s, value = %s\n", 
+            record.offset(), record.key(), record.value());
+      }
+	
+	

@@ -12,30 +12,27 @@ public class PairsWhoseSumXHashApproach {
         if(numbers.length < 2){
             return;
         }
-        Set set = new HashSet(numbers.length);
+        Set<Integer> set = new HashSet<Integer>(numbers.length);
 
         for(int value : numbers){
             int target = sum - value;
 
             // if target number is not in set then add
-            if(!set.contains(target)){
-                set.add(value);
+            if(set.contains(target)){
+            	System.out.printf("(%d, %d) %n", value, target);
             }else {
-                System.out.printf("(%d, %d) %n", value, target);
+            	set.add(value);
             }
         }
     }
 
-
     public static void main(String[] args) {
-
-        PairsWhoseSumXHashApproach obj = new PairsWhoseSumXHashApproach();
 
        // int []arr = {3,5,8,3,4,9,7,8,6};
         int arr[] = {11, 15, 6, 8, 9, 10};
         int sum = 16;
 
-        obj.printPairsUsingSet(arr,sum);
+        printPairsUsingSet(arr,sum);
 
     }
 

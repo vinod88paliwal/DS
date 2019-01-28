@@ -3,7 +3,7 @@ package com.ds.problems;
 /**
  * Created by vpaliwal on 9/13/17.
  */
-//Note : This program will not work properly if array contains 0 (zero).
+//Note : This program will not work properly if array contains 0 (zero) or any element present in array more than the size of the array.
 public class FindDuplicateInArray {
 
     private void printRepeating(int[] arr, int size) {

@@ -4,7 +4,6 @@ package com.ds.problems;
  * Created by vpaliwal on 9/9/17.
  */
 public class Separate0and1 {
-
     void separate0and1Values(int []arr, int size){
 
             int leftIndx= 0,rightIndx= size -1;
@@ -28,7 +27,6 @@ public class Separate0and1 {
                     arr[leftIndx ] =  arr[rightIndx];
                     arr[rightIndx]  = temp;
                 }
-
             }
     }
 

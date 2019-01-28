@@ -10,10 +10,9 @@ public class NumberOccuredOddTimesXORArray {
     int getOddOccurrenceNumber (int []arr , int size){
         int result =0;
 
-        for (int i : arr){
-
+        for (int i : arr)
                 result  ^= i;
-        }
+
         return  result;
     }
 
