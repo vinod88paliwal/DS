@@ -27,7 +27,6 @@ public class FibonacciCalculator {
             fibo2 = fibonacci;
             i++;
         }	
-        
         return fibo1; //Fibonacci number
     }  
 

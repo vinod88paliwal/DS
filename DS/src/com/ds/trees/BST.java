@@ -11,6 +11,8 @@ Binary Search Tree, is a node-based binary tree data structure which has the fol
    The right subtree of a node contains only nodes with keys greater than the node’s key.
    The left and right subtree each must also be a binary search tree.
    There must be no duplicate nodes.
+   
+   Most of the BST operations (e.g., search, max, min, insert, delete.. etc) take O(h) time where h is the height of the BST. The cost of these operations may become O(n) for a skewed Binary tree
  */
 
 public class BST {
@@ -88,7 +90,7 @@ public class BST {
 	 // Create an empty queue for level order tarversal
 		Queue<Node> q = new LinkedList();
 		
-	// Enqueue Root and initialise height
+	// Enqueue Root and initialize height
 		q.add(root);
 		int height =0;
 		
@@ -132,7 +134,7 @@ public class BST {
 			}
 	}
 	
-	void printPaths(List<Integer> path) {
+	private void printPaths(List<Integer> path) {
 		System.out.println("");
 		
 		Iterator<Integer> it =  path.iterator();
@@ -199,7 +201,7 @@ public class BST {
 		 preOrderTravseTree(rootBST);
 	}
 	
-	/* This function traverse the skewed binary tree and stores its nodes pointers in ArrayList nodes[] */
+	/* This function traverse the skewed binary tree and stores its nodes pointers in ArrayList nodes[] using inorder traverse */
 	private void storeBSTNodes(Node root , List<Node> nodesList) {
 		
 		if(root == null) return;
@@ -226,6 +228,34 @@ public class BST {
 		
 		return root;
 	}
+	
+	//This program is incomplete , need to work on it.
+	public boolean isBST()
+	{
+		return isBSTUtil(root,null,null);
+	}
+	
+	/* Returns true if the given tree is a BST and its values are >= min and <= max. */
+	private boolean isBSTUtil(Node root, Node left, Node right) {
+
+		/* an empty tree is BST */
+		  if (root == null)
+			  return true;
+		  
+	//if left node exist then check it has correct data or not i.e. left node's data should be less than root's data 
+		  if(left != null && root.data < left.data )
+			   return false;
+		  
+ //if right node exist then check it has correct data or not i.e. right node's data should be greater than root's data 		  
+	       if(right != null && root.data > right.data)
+		      return false;
+		  
+ // check recursively for every node.       
+	       isBSTUtil(root, left, right);
+	       
+		return false;
+	}
+
 	
 	
 /*	
@@ -301,7 +331,8 @@ sameTree(tree1, tree2)
 		 // Enqueue Roots of trees in respective queues
 		    q1.add(root1); q2.add(root2);
 			
-		/* 2. both non-empty -> compare them */	
+		/* 2. both n
+		 * on-empty -> compare them */	
 			while(!q1.isEmpty() && !q2.isEmpty()) {
 				
 				// Get front nodes and compare them
@@ -346,7 +377,25 @@ sameTree(tree1, tree2)
  		return root;
  	}
 	
-	
+/* Just traverse the node from root to left recursively until left is NULL. The node whose left is NULL is the node with minimum value. */
+ 	public void minMaxValue(Node root)
+ 	{
+ 		Node temp = root;
+ 		while(temp.left != null)
+ 			temp = temp.left;
+ 		
+ 		System.out.println("Min Value : "+temp.data);
+ 		
+ 		//Similarly we can get the maximum value by recursively traversing the right node of a binary search tree.
+ 		  temp = root;
+ 		while(temp.right != null)
+ 			temp = temp.right;
+ 		
+ 		System.out.println("Max Value : "+temp.data);
+ 	}
+	//Time Complexity: O(n) Worst case happens for left skewed trees.
+ 	
+ 	
 	public void preOrderTravseTree(Node root) {
 		
 		if(root != null) {
@@ -413,10 +462,10 @@ public static void main(String[] args) {
 		//System.out.println("Height of Tree Rec : "+tree.heightRecursion(tree.root));
 		//System.out.println("Height of Tree Loop : "+tree.heightLoop(tree.root));
 		
-		//tree.deleteTree(root);
+		tree.deleteTree(tree.root);
 		
-		List<Integer> list= new ArrayList<Integer>();
-		tree.printRootToLeafPathRec(tree.root, list);
+		//List<Integer> list= new ArrayList<Integer>();
+		//tree.printRootToLeafPathRec(tree.root, list);
 		
 		//tree.display(tree.root);
 		

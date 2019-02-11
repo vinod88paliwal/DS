@@ -22,7 +22,6 @@ public class BalancedString {
 				stack.add(c);
 				continue;
 			}
-			
 			else if (c == ')' && stack.pop() != '(') {
 				return false;
 			

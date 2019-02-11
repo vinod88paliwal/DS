@@ -4593,7 +4593,8 @@ Output : Exception in thread "main" java.lang.NullPointerException
 To avoid the abnormal termination, we use Optional class. In the following example, we are using Optional. So, our program can execute without crashing.
 Example : optionalclass.OptionalExample1	
 	
-	
+-----------------------------
+CompletableFuture : https://docs.oracle.com/javase/8/docs/api/java/util/concurrent/CompletableFuture.html	
 
 
 -------------------------------------------------------------------***************---------------------------------------------------------------------------------
@@ -4612,11 +4613,78 @@ Insertion Sort :O(n2)
 Selection Sort : O(n2)
 
 
+-------------------------------------------------------------------***************---------------------------------------------------------------------------------
+                                                                        Hystrix
+                                                                ---------*****--------
+																
+Circuit Breaker : its a design where we can break a request whenever we need based on different criteria.
+
+
+Hystrix : Hystrix is a latency and fault tolerance library designed to isolate points of access to remote systems, services and 3rd party libraries, stop cascading failure and enable resilience in complex distributed systems where failure is inevitable
+
+* If second service is taking too much time or its down then hytrix break/cut that call and returns the response with fallback Response.
+
+
+In below Example if i make direct call to general() API and its called URI (url) is down/not responding then it will give "404 Not Found" Error. but
+If we call hystrix() API and its called URI (url) is down/not responding then it will fallback API/Method/Logic mentioned in "fallbackMethod" attribute 
+of @HystrixCommand annotation, so it will return empty list. as fallback method (hystrixFallBack()) returning empty list.
+
+
+@RestController
+@RequestMapping("/rest/users")
+public class UsersResource
+{
+
+  @HystrixCommand(groupKey = "fallback", commandKey = "fallback", fallbackMethod = "hystrixFallBack")
+    @GetMapping(value = "/hystrix")
+	public List<Users> hystrix() {
+        return restTemplate.getForObject(url, List.class);
+    }
+
+ @GetMapping(value = "")
+    public List<Users> general() {
+		String url ="http://hello-server/rest/users";
+        return restTemplate.getForObject(url, List.class);
+    }
+
+    public List<Users> hystrixFallBack() {
+        return Collections.emptyList();
+    }
+}
+
+
+@EnableHystrix
+@SpringBootApplication
+public class Main 
+{
+
+}
+
+
+Mvn Dependencies :
+
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-hystrix</artifactId>
+    <version>1.4.6.RELEASE</version>
+</dependency>
+
+
+
+
+-------------------------------------------------------------------***************---------------------------------------------------------------------------------
+                                                                      NGINX
+                                                                ---------*****--------
+https://www.nginx.com/blog/building-microservices-using-an-api-gateway/
+
+
+
+
 
 -------------------------------------------------------------------***************---------------------------------------------------------------------------------
                                                                       Cassandara
                                                                 ---------*****--------
-Cassandara : Apache Cassandra is a highly scalable, high-performance distributed database designed to handle large amounts of data across many commodity servers, providing high availability with no single point of failure. It is a type of NoSQL database							
+Cassandara : Apache Cassandra is a highly scalable, high-performance distributed database designed to handle large amounts of data across many commodity servers, providing high availability with no single point of failure. It is a type of NoSQL database.							
 						
 NoSQLDatabase : A NoSQL is a database that provides a mechanism to store and retrieve data other than the tabular relations used in relational databases. These databases are schema-free, support easy replication, have simple API, eventually consistent, and can handle huge amounts of data.
 				Example : Apache HBase, MongoDB.
@@ -4637,6 +4705,160 @@ Cassandra - Architecture :
 * Each node in a cluster can accept read and write requests, regardless of where the data is actually located in the cluster.
 * When a node goes down, read/write requests can be served from other nodes in the network.
 
+Cassandra has been built/developed on CAP Theorum.
+----------------------
+CAP theorem, states that it is impossible for a distributed data store to simultaneously provide more than two out of the following three guarantees:
+
+1. Consistency: Every read receives the most recent write or an error
+2. Availability: Every request receives a (non-error) response – without the guarantee that it contains the most recent write
+3. Partition tolerance: The system continues to operate despite an arbitrary number of messages being dropped (or delayed) by the network between nodes
+
+Database systems designed with traditional ACID guarantees in mind such as RDBMS choose consistency over availability, whereas systems designed around the BASE philosophy, common in the NoSQL movement for example, choose availability over consistency.[7]
+
+When choosing consistency over availability, the system will return an error or a time-out if particular information cannot be guaranteed to be up to date due to network partitioning. When choosing availability over consistency, the system will always process the query and try to return the most recent available version of the information, even if it cannot guarantee it is up to date due to network partitioning.
+
+Quest : When multiple service accesing same or data needed from multiple services to show to customer (want to show Customer and his Order details but Order Service can not access Customer Service DB)
+
+https://dzone.com/articles/event-driven-data-management-for-microservices-par
+Event-Driven Architecture
+
+
+***************************************************************************
+cassandra.yaml :
+
+- This is the main configuration file used to customize the Cassandra cluster. You can set parameters, such as cluster name, number of virtual nodes, data file location, seed providers, listen address, and Remote Procedure Call or RPC ports in this file.
+--------------
+https://shermandigital.com/blog/designing-a-cassandra-data-model/
+Cassandra Data Model : Cassandra’s data model consists of keyspaces, column families, keys, and columns.
+--------------------
+Cassandra Data Model	Relational Data Model
+	Keyspace				Database
+	Column Family			Table
+	Partition Key			Primary Key
+	Column Name/Key			Column Name
+	Column Value			Column Value
+
+How Cassandra organizes data:
+---------------------------
+Cassandra organizes data into partitions. Each partition consists of multiple columns. Partitions are stored on a node. Nodes are generally part of a cluster where each node is responsible for a fraction of the partitions.
+When inserting records, Cassandra will hash the value of the inserted data’s partition key; Cassandra uses this hash value to determine which node is responsible for storing the data.
+
+Components of the Cassandra data model :
+----------------------------------------
+* Column families : Column families are established with the CREATE TABLE command. Column families are represented in Cassandra as a map of sorted maps. The partition key acts as the lookup value; the sorted map consists of column keys and their associated values.
+ Syntax :  Map<ParitionKey, SortedMap<ColumnKey, ColumnValue>>
+
+* Partition key : The partition key is responsible for distributing data among nodes. A partition key is the same as the primary key when the primary key consists of a single column.
+				  Partition keys belong to a node. Cassandra is organized into a cluster of nodes, with each node having an equal part of the partition key hashes.
+				  
+Imagine we have a four node Cassandra cluster. In the example cluster below, Node 1 is responsible for partition key hash values 0-24; Node 2 is responsible for partition key hash values 25-49; and so on.
+Example : Node1 : 0-24, Node2 : 25-49, Node3 : 50-74, Node4 : 75-99 
+
+* Replication factor : Depending on the replication factor configured, data written to Node 1 will be replicated in a clockwise fashion to its sibling nodes. 
+  -----------------  So in our example above, assume we have a four-node cluster with a replication factor of three. When we insert data with a partition key of 23, the data will get written to Node 1 and replicated to Node 2 and Node 3. When we insert data with a partition key of 88, the data will get written to Node 4 and replicated to Node 1 and Node 2.
+
+* Compound key : Compound keys include multiple columns in the primary key, but these additional columns do not necessarily affect the partition key. A partition key with multiple columns is known as a composite key and will be discussed later.  
+
+Example : One property of CrossFit gyms is that each gym must have a unique name i.e. no two gyms are allowed to share the same name.
+CREATE TABLE crossfit_gyms (  
+   gym_name text,  
+   city text,  
+   state_province text,  
+   country_code text,  
+   PRIMARY KEY (gym_name)  
+);
+
+Now suppose we want to look up gyms by location. If we use the crossfit_gyms table, we’ll need to iterate over the entire result set. Instead, we’ll create a new table that will allow us to query gyms by country.
+
+CREATE TABLE crossfit_gyms_by_location (  
+   country_code text,  
+   state_province text,  
+   city text,  
+   gym_name text,  
+   PRIMARY KEY (country_code, state_province, city, gym_name)  
+);
+
+Note that only the first column of the primary key above is considered the partition key; the rest of columns are clustering keys. This means that while the primary key represents a unique gym record/row, all gyms within a country reside on the same partition. So when we query the crossfit_gyms_by_location table, we receive a result set consisting of every gym sharing a given country_code. While useful for searching gyms by country, using this table to identify gyms within a particular state or city requires iterating over all gyms within the country in which the state or city is located.
+
+
+Clustering key : Clustering keys are responsible for sorting data within a partition. Each primary key column after the partition key is considered a clustering key. In the crossfit_gyms_by_location example, country_code is the partition key; state_province, city, and gym_name are the clustering keys. Clustering keys are sorted in ascending order by default. So when we query for all gyms in the United States, the result set will be ordered first by state_province in ascending order, followed by city in ascending order, and finally gym_name in ascending order.
+-------------
+
+Order by : To sort in descending order, add a WITH clause to the end of the CREATE TABLE statement.
+--------
+CREATE TABLE crossfit_gyms_by_location (  
+   country_code text,  
+   state_province text,  
+   city text,  
+   gym_name text,  
+   PRIMARY KEY (country_code, state_province, city, gym_name)  
+) WITH CLUSTERING ORDER BY (state_province DESC, city ASC, gym_name ASC);
+
+The result set will now contain gyms ordered first by state_province in descending order, followed by city in ascending order, and finally gym_name in ascending order. You must specify the sort order for each of the clustering keys in the ORDER BY statement. The partition key is not part of the ORDER BY statement because its values are hashed and therefore won’t be close to each other in the cluster.
+
+
+Composite key : Composite keys are partition keys that consist of multiple columns. The crossfit_gyms_by_location example only used country_code for partitioning. The result is that all gyms in the same country reside within a single partition. This can lead to wide rows. In the case of our example, there are over 7,000 CrossFit gyms in the United States, so using the single column partition key results in a row with over 7,000 combinations.
+--------------  To avoid wide rows, we can move to a composite key consisting of additional columns. If we change the partition key to include the state_province and city columns, the partition hash value will no longer be calculated off only country_code. Now, each combination of country_code, state_province, and city will have its own hash value and be stored in a separate partition within the cluster. We accomplish this by nesting parenthesis around the columns we want included in the composite key. 
+CREATE TABLE crossfit_gyms_by_city (  
+ country_code text,  
+ state_province text,  
+ city text,  
+ gym_name text,  
+ opening_date timestamp,  
+ PRIMARY KEY ((country_code, state_province, city), opening_date, gym_name)  
+) WITH CLUSTERING ORDER BY ( opening_data ASC, gym_name ASC );
+
+Notice that we are no longer sorting on the partition key columns. Each combination of the partition keys is stored in a separate partition within the cluster.
+
+
+A note about querying clustered composite keys :
+------------------------------------------------
+When issuing a CQL query, you must include all partition key columns, at a minimum. You can then apply an additional filter by adding each clustering key in the order in which the clustering keys appear. Below you can see valid queries and invalid queries from our crossfit_gyms_by_city example.
+
+Valid queries:
+-------------
+SELECT * FROM crossfit_gyms_by_city WHERE country_code = 'USA' and state_province = 'VA' and city = 'Arlington'
+SELECT * FROM crossfit_gyms_by_city WHERE country_code = 'USA' and state_province = 'VA' and city = 'Arlington' and opening_date <  '2015-01-01 00:00:00+0200'
+
+Invalid queries:
+---------------
+SELECT * FROM crossfit_gyms_by_city WHERE country_code = 'USA' and state_province = 'VA'
+SELECT * FROM crossfit_gyms_by_city WHERE country_code = 'USA' and state_province = 'VA' and city = 'Arlington' and gym_name = 'CrossFit Route 7'
+
+Note : 
+The first invalid query is missing the city partition key column. The second invalid query uses the clustering key gym_name without including the preceding clustering key opening_date.
+The reason the order of clustering keys matters is because the clustering keys provide the sort order of the result set. Because of the clustering key’s responsibility for sorting, we know all data matching the first clustering key will be adjacent to all other data matching that clustering key.
+In our example, this means all gyms with the same opening date will be grouped together in alphabetical order. Gyms with different opening dates will appear in temporal order.
+Because we know the order, CQL can easily truncate sections of the partition that don’t match our query to satisfy the WHERE conditions pertaining to columns that are not part of the partition key. However, because the clustering key gym_name is secondary to clustering key opening_date, gyms will appear in alphabetical order only for gyms opened on the same day (within a particular city, in this case). Therefore, we can’t specify the gym name in our CQL query without first specifying an opening date.
+
+
+Internal data structure :
+-------------------------
+If we create a column family (table) with CQL:
+CREATE TABLE crossfit_gyms (  
+ gym_name text PRIMARY KEY,  
+ country_code text,  
+ state_province text,  
+ city text  
+);
+
+And insert a row: INSERT INTO crossfit_gyms (country_code, state_province, city, gym_name) VALUES ('USA', 'CA', 'San Francisco', 'San Francisco CrossFit');
+
+Assuming we don’t encode the data, it is stored internally as:
+Partition Key: San Francisco CrossFit  
+=>(column=, value=, timestamp=1374683971220000)  
+=>(column=city, value='San Francisco', timestamp=1374683971220000)  
+=>(column=country_code, value='USA', timestamp=1374683971220000)  
+=>(column=state_province, value='CA', timestamp=1374683971220000)
+You can see that the partition key is used for lookup. In this case the first column is also the partition key, so Cassandra does not repeat the value. The next three columns hold the associated column values.
+
+
+If we use a composite key, the internal structure changes a bit
+
+For More : https://shermandigital.com/blog/designing-a-cassandra-data-model/
+
+
+****************************************************************8
 
 Data Replication in Cassandra :
 -----------------------------
@@ -4856,7 +5078,7 @@ Example :CREATE TYPE card_details (
 -------------------------------------------------------------------***************---------------------------------------------------------------------------------
                                                                       Kafka
                                                                 -------*****------
-
+Version : 1.0.0
 Kafka : Kafka is designed for distributed high throughput systems. Kafka tends to work very well as a replacement for a more traditional message broker.
 		Two types of messaging patterns are available − one is point to point and the other is publish-subscribe (pub-sub) messaging system.
 		
@@ -4986,5 +5208,70 @@ Example :
          System.out.printf("offset = %d, key = %s, value = %s\n", 
             record.offset(), record.key(), record.value());
       }
+	
+	
+--------------------------------------------------***********************----------------------------------------------------------------------------
+
+											        System Designing
+												-----------------------
+
+Elevator Design : http://www.web-feats.com/classes/dj/lessons/uml/elevator.htm
+				  https://medium.com/system-designing-interviews/design-a-elevator-system-fc5832ca0b8b	
+
+For Users :
+	1. call an elevator by pressing buttons in lobby.
+	2. Choose a floor.
+
+For System:
+	1. get all available elevators.
+	2. choose any available elevator and send it on the requested floor (this can be optimized)
+	3. get list of all floors where elevator is supposed to make a stop.
+
+Classes :
+	class ElevatorSystem 
+	{
+		Elevator[] elevators;
+		int totalFloors; // total floors in the building
+		Queue<Elevator> availableElevators; // Queue of all available floors
+		boolean[] requestedFloors; // all the floors from where an elevator was requested
+
+		public Elevator getNearestAvailableElevator(floorNumber);
+		public void callElevator(floorNumber, elevator);
+	}
+
+	class FloorLobby 
+	{
+		Button up;
+		Button down;
+	}
+
+	class Elevator 
+	{
+		int id;
+		int currentFloor;
+		boolean goUp; // is elevator suppose to go up
+		boolean goDown;
+		boolean[] isAStop; // flags all floors on which elevator is suppose to stop
+		Button[] buttons;
+		
+		public void putAsAvailable(id);
+		public void gotoFloor(floor);
+		public void start();
+		public int currentFloor();
+	}
+
+
+	class Button 
+	{
+		int buttonId;
+		int floorNumber;
+	}
+
+
+Parking Lot : https://www.educative.io/collection/page/5668639101419520/5692201761767424/5770234338213888
+https://codereview.stackexchange.com/questions/170922/parking-lot-oo-design
+
+Design pattern : http://www.vincehuston.org/dp/all_uml.html
+	
 	
 	

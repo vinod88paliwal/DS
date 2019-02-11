@@ -4,13 +4,15 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class Bus extends Vehicle {
-
 	private int charges = 100;
 	LocalDateTime dateTime;
 	
-	public Bus(vehicle v , color c , String noPlate) {
-
+	public Bus(String np , color c) 
+	{
+		noPlate = np;
+		dateTime = LocalDateTime.now();
 	}
+
 	public long getCarges()
 	{
 		LocalDateTime now = LocalDateTime.now();
@@ -19,5 +21,4 @@ public class Bus extends Vehicle {
 		
 		return charge;
 	}
-
 }

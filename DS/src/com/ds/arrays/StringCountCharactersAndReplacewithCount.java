@@ -12,7 +12,6 @@ public class StringCountCharactersAndReplacewithCount {
 		int len = s.length();
 		Map<Character, Integer> dupMap = new HashMap<Character, Integer>();
 		
-		
 		for(int i=0 ; i< len ; i++) {
 			char c = s.charAt(i);
 			

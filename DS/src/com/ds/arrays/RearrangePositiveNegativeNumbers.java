@@ -10,10 +10,10 @@ public class RearrangePositiveNegativeNumbers {
 
 		while (start < end)
 		{
-			while (arr[start] < 0 )
+			while (arr[start] >= 0 )
 				start++;
 
-			while (arr[end] >=0)
+			while (arr[end] < 0)
 				end--;
 
 			if (start < end) { //first + and last -

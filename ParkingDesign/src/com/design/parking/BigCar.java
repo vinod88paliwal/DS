@@ -1,14 +1,18 @@
 package com.design.parking;
+ 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class BigCar extends Vehicle {
 	private int charges = 50;
-	LocalDateTime dateTime;
+	private LocalDateTime dateTime;
 	
-	public BigCar(vehicle v , color c , String noPlate) {
-
+	public BigCar(String np , color c ) 
+	{
+		noPlate = np;
+		dateTime = LocalDateTime.now();
 	}
+	
 	public long getCarges()
 	{
 		LocalDateTime now = LocalDateTime.now();

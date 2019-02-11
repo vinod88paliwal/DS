@@ -6,9 +6,11 @@ public class Car extends Vehicle {
 	private int charges = 30;
 	 LocalDateTime dateTime;
 
-	 public Car(vehicle v , color c , String noPlate) {
-
-		}
+	 public Car(String np, color c) 
+	 {
+		 noPlate = np;
+		 dateTime = LocalDateTime.now();
+	 }
 	 
 	public long getCarges()
 	{

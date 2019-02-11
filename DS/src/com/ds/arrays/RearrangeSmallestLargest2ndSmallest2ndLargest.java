@@ -41,6 +41,42 @@ public class RearrangeSmallestLargest2ndSmallest2ndLargest {
             System.out.print(val+" ");
     }
     
+    //This is incomplete and needs to be complete.
+    static void rearrangeArraySwap(int arr[], int n)
+    {   
+        Arrays.sort(arr);
+      
+        int[] tempArr = new int[n]; // To store modified array
+         
+        // Adding numbers from sorted array to new array accordingly
+        int ArrIndex = 0;
+        int i =0 , j= n-1;
+        
+        while (i <= n / 2 || j > n / 2) 
+        {
+        	if(i %2 ==0 && arr[i] > arr[i+1])
+        	{
+        		arr[i] = arr[j];
+        		i +=2; j--;
+        	}
+        	else if(i %2 ==1 && arr[i] < arr[i+1])
+        	{
+        		
+        	}
+        
+        	tempArr[ArrIndex] = arr[i++];
+        	ArrIndex++;
+        	
+        	if(ArrIndex < n)
+        	{
+        		tempArr[ArrIndex] = arr[j--];
+        		ArrIndex++;
+        	}
+		}
+        
+        for(int val : tempArr)
+            System.out.print(val+" ");
+    }
 /*
 An efficient solution involves following steps.
 1) Sort input array using a O(n Log n) algorithm.

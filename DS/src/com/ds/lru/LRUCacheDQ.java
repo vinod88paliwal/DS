@@ -16,8 +16,7 @@ public class LRUCacheDQ {
     //maximum capacity of cache
    private int csize;
 
-    public 
-    LRUCacheDQ(int size)
+    public LRUCacheDQ(int size)
     {
         dq = new LinkedList<>();
         set = new HashSet<>();

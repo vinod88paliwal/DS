@@ -103,29 +103,32 @@ public class LinkedListTest {
 		  LinkedList llist1 = new LinkedList(); 
 		  LinkedList llist2 = new LinkedList();
 		  
-		  List intersect = new java.util.LinkedList(); 
-		  List union = new java.util.LinkedList();
+		  List<Integer> intersect = new java.util.LinkedList<Integer>(); 
+		  List<Integer> union = new java.util.LinkedList<Integer>();
 		  
 		  //create a linked list 10->15->4->20 llist1.add(20); llist1.add(4);
-		  llist1.add(15); llist1.add(10); llist1.add(4); llist1.add(20);
+		  llist1.add(5); llist1.add(10); llist1.add(14); llist1.add(25);
 		  
 		  //create a linked list 8->4->2->10 llist2.add(10); llist2.add(2);
-		  llist2.add(4); llist2.add(8); llist2.add(15); llist2.add(10);
+		  llist2.add(4); llist2.add(8); llist2.add(15); llist2.add(20);
 		  
-		  intersect = llist1.getInterSection(llist1, llist2);
-		  union = llist1.getUnion(llist1, llist2);
-		  
-		  System.out.println("First List is"); 
-		  System.out.println(llist1);
-		  
-		  System.out.println("Second List is"); 
-		  System.out.println(llist2);
-		  
-		  System.out.println("Intersection List is"); 
-		  System.out.println(intersect);
-		  
-		  System.out.println("Union List is"); 
-		  System.out.println(union);
+		/*
+		 * intersect = llist1.getInterSection(llist1, llist2); union =
+		 * llist1.getUnion(llist1, llist2);
+		 * 
+		 * System.out.println("First List is"); System.out.println(llist1);
+		 * 
+		 * System.out.println("Second List is"); System.out.println(llist2);
+		 * 
+		 * System.out.println("Intersection List is"); System.out.println(intersect);
+		 * 
+		 * System.out.println("Union List is"); System.out.println(union);
+		 */
 		 
+		  /*** Merge ****/
+		  System.out.println("Merged List : "); 
+		 // System.out.print(llist1.sortedMerge(llist1, llist2));
+		  System.out.print(llist1.sortedMergeRecursion(llist1, llist2));
+		  
 	}
 }

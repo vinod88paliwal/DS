@@ -41,10 +41,14 @@ public class SortKeyValueInHashMap {
         //1. Create a list from elements of HashMap
         List<Map.Entry<Integer,String>> list = new LinkedList<>(map.entrySet());
 
-        //2. Sort the list
+        //2. Sort the list -- >Sory via Value
+        //Collections.sort(list, (Map.Entry<Integer,String> o1,Map.Entry<Integer,String> o2) -> (o1.getKey().compareTo(o2.getKey())));
+
+        //2. Sort the list -- >Sory via Key
         Collections.sort(list, (Map.Entry<Integer,String> o1,Map.Entry<Integer,String> o2) -> (o1.getValue().compareTo(o2.getValue())));
 
-       //3. Put data from sorted list to map
+        
+        //3. Put data from sorted list to map
         Map<Integer,String> temp = new LinkedHashMap<Integer,String>();
 
         for(Map.Entry<Integer,String> entry : list)

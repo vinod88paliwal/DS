@@ -7,9 +7,10 @@ public class Bike extends Vehicle {
 	private int charges = 10;
 	LocalDateTime dateTime;
 	
-	public Bike(vehicle v , color c , String np,LocalDateTime dateTime) {
-
+	public Bike(String np, color c ) 
+	{
 		noPlate = np;
+		dateTime = LocalDateTime.now();
 	}
 	public long getCarges()
 	{

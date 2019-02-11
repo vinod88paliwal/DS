@@ -466,15 +466,85 @@ public class LinkedList {
 		return result;
 	}
 
+	/*  https://www.geeksforgeeks.org/merge-two-sorted-linked-lists/
+	 Takes head of two lists sorted in increasing order, and splices their nodes together to make one big sorted list which is returned. */
+	public List<Integer> sortedMerge(Node head1, Node head2)
+	{
+		List<Integer> result = new java.util.LinkedList<Integer>();
+		
+		while(true)
+		{
+			/* if either list runs out, use the other list */
+			if(head1 == null) {
+				result.add(head2.data);
+				break;
+			}
+			if(head2 == null) {
+				result.add(head1.data);
+				break;
+			}
+			
+	/* Compare the data of the two lists whichever lists' data is smaller, append it into tail and advance the head to the next Node */
+		if(head1.data <= head2.data)
+		{
+			result.add(head1.data);
+			head1 = head1.next;
+		}
+		else
+		{
+			result.add(head2.data);
+			head2 = head2.next;
+		}
+		
+		}
+		return result;
+	}
+	
+	public List<Integer> sortedMergeRecursion(Node head1, Node head2)
+	{
+		List<Integer> result = new java.util.LinkedList<Integer>();
+		
+		/*Base Condition */
+		if(head1 == null) {
+			result.add(head2.data);
+			return result;
+		}
+		if(head2 == null) {
+			result.add(head1.data);
+			return result;
+		}
+		
+		/* Pick either a or b, and recur */
+		if(head1.data <= head2.data)
+		{
+			result.add(head1.data);
+			sortedMergeRecursion(head1.next, head2);
+		}
+		else
+		{
+			result.add(head2.data);
+			sortedMergeRecursion(head1, head2.next);
+		}
+		
+		return result;
+	}
 //Below are for testing.
-	public List getInterSection(LinkedList head1, LinkedList head2) {
+	public List<Integer> getInterSection(LinkedList head1, LinkedList head2) {
 		return getInterSection(head1.head, head2.head);
 	}
 
-	public List getUnion(LinkedList head1, LinkedList head2) {
+	public List<Integer> getUnion(LinkedList head1, LinkedList head2) {
 		return getUnion(head1.head, head2.head);
 	}
+	
+	public List<Integer> sortedMerge(LinkedList head1, LinkedList head2) {
+		return sortedMerge(head1.head, head2.head);
+	}
 
+	public List<Integer> sortedMergeRecursion(LinkedList head1, LinkedList head2) {
+		return sortedMergeRecursion(head1.head, head2.head);
+	}
+	
 	// function to Find the unique elements in linked lists
 	void uniqueElements() {
 		// Base Condition
@@ -503,7 +573,8 @@ public class LinkedList {
 		}
 	}
 
-	boolean isSorted() {
+	
+	public boolean isSorted() {
 		Node temp = head;
 
 		// Base Condition
@@ -766,7 +837,7 @@ public class LinkedList {
 	 * end. Now main pointer will point to nth node from the end. Return main
 	 * pointer.
 	 */
-
+	
 	public String toString() {
 		String output = "";
 

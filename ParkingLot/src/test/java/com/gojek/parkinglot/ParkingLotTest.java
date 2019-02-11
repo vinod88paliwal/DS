@@ -1,9 +1,11 @@
-package com.gojek.parkinglot;
+package test.java.com.gojek.parkinglot;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.omg.CORBA.Environment;
+
+import com.gojek.parkinglot.ParkingLot;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;

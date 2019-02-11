@@ -15,7 +15,7 @@ public class ThreadDemo1 {
 			// Consider at this point
 			// Thread t1 gets preempted and
 			// Thread t2 gets executed.
-			System.out.println("get1() :" + abc);
+			System.out.println("get1() " + abc);
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {
